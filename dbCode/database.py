@@ -29,7 +29,7 @@ class database:
             self.cur.execute("UPDATE students SET email = '" + new_email + "' WHERE student_id = " + student_id + ";")
             self.conn.commit()
         except Exception as e:
-            print("Could not add:", e)
+            print("Could not edit:", e)
 
     # deleting student
     def deleteStudent(self,student_id):
@@ -37,4 +37,4 @@ class database:
             self.cur.execute("DELETE FROM students WHERE student_id = " + student_id + ";")
             self.conn.commit()
         except Exception as e:
-            print("Could not add:", e)
+            print("Could not delete:", e)
