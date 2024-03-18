@@ -2,4 +2,15 @@ Ari Rubin 101222231
 
 Steps to compile:
 
+go into database.py and replace database host user and password with your own in initialization
+
+ensure your database has the following lines initialized:
+CREATE TABLE Students (
+    student_id SERIAL PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    enrollment_date DATE
+);
+
 Run Application.py
