@@ -1,40 +1,36 @@
-import psycopg2
-class database:
+from dbCode import *
+from dbCode.database import database
 
-    def __init__(self):
-        self.conn = psycopg2.connect(database="Assignment3",
-                        host="localhost",
-                        user="postgres",
-                        password="student")
-        self.cur = self.conn.cursor()
 
-    def getAllStudents(self):
-        self.cur.execute("SELECT * FROM students")
-        all = self.cur.fetchall()
-        for i in all:
-            print(i)
+def runProgram():
+    # interface
+    db = database()
+    while True:
+        print(
+            "Welcome. Please select an option\n(1) Show database\n(2) Insert new item\n(3) Update email\n(4) Delete student\n(5) Exit")
+        ini = input("What do you want to do? ")
+        #show database
+        if ini == "1":
+            db.getAllStudents()
+        #Insert new item
+        elif ini == "2":
+            fname = input("First name: ")
+            lname = input("Last name: ")
+            email = input("Email: ")
+            date = input("Enrollment date: ")
+            db.addStudent(fname, lname, email, date)
+        #update email
+        elif ini == "3":
+            idstu = input("Which student id: ")
+            newemail = input("New email: ")
+            db.updateStudentEmail(idstu, newemail)
+        #delete item
+        elif ini == "4":
+            delid = input("Which student id: ")
+            db.deleteStudent(delid)
+        #exit
+        elif ini == "5":
+            break
+        print("\n")
 
-    # adding students
-    def addStudent(self,first_name, last_name, email, enrollment_date):
-        try:
-            self.cur.execute("INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES (%s, %s, %s, %s);",
-                        (first_name, last_name, email, enrollment_date))
-            self.conn.commit()
-        except Exception as e:
-            print("Could not add:", e)
-
-    # updating student emails
-    def updateStudentEmail(self,student_id, new_email):
-        try:
-            self.cur.execute("UPDATE students SET email = '" + new_email + "' WHERE student_id = " + student_id + ";")
-            self.conn.commit()
-        except Exception as e:
-            print("Could not edit:", e)
-
-    # deleting student
-    def deleteStudent(self,student_id):
-        try:
-            self.cur.execute("DELETE FROM students WHERE student_id = " + student_id + ";")
-            self.conn.commit()
-        except Exception as e:
-            print("Could not delete:", e)
+runProgram()
