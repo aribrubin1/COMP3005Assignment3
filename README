@@ -1,5 +1,8 @@
 Ari Rubin 101222231
 
+video:
+https://www.youtube.com/watch?v=b_W2Hm7BZpc
+
 Steps to compile:
 
 go into database.py and replace database host user and password with your own in initialization
